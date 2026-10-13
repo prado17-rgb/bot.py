@@ -1,0 +1,34 @@
+import os
+import json
+import requests
+
+# Credenciais de Segurança e Acesso
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8209539152:AAHAmiWf8t65uVP1UI65lzfN6OfGQfTpiSY")
+CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "1028308115")  # Ajuste se necessário
+
+def enviar_mensagem_telegram(mensagem):
+    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
+    payload = {
+        "chat_id": CHAT_ID,
+        "text": mensagem,
+        "parse_mode": "Markdown"
+    }
+    response = requests.post(url, json=payload)
+    if response.status_code == 200:
+        print("Mensagem enviada com sucesso pelo Hexor!")
+    else:
+        print(f"Erro ao enviar mensagem: {response.text}")
+
+if __name__ == "__main__":
+    print("=== HEXOR: Executando rotina do Projeto Hex (FNZINX999) ==> [AZUL, PRETO E BRANCO]")
+    
+    # Mensagem de Inicialização padrão do Hexor
+    aviso_inicial = (
+        "🤖 *HEXOR ONLINE — PROJETO HEX*\n\n"
+        "Status: Sistemas integrados e operacionais.\n"
+        "Identidade Visual: Azul, Preto e Branco.\n"
+        "Gestor: FNZINX999\n\n"
+        "_Pronto para gerenciar as rotinas, resumos matinais (05:00) e vespertinos (17:00)._"
+    )
+    
+    enviar_mensagem_telegram(aviso_inicial)
